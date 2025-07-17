@@ -1,7 +1,4 @@
-﻿using System;
-using UIKit;
-
-namespace NNChallenge.iOS.ViewModel
+﻿namespace NNChallenge.iOS.ViewModel
 {
     public class LocationPickerModel : UIPickerViewModel
     {        

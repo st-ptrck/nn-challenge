@@ -1,5 +1,4 @@
-﻿using System;
-namespace NNChallenge.Interfaces
+﻿namespace NNChallenge.Models
 {
     public interface IWeatherForcastVO
     {
