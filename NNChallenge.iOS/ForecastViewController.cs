@@ -1,6 +1,7 @@
 ﻿using NNChallenge.iOS.Utils;
 using NNChallenge.iOS.ViewModel;
 using NNChallenge.Service;
+using NNChallenge.Utils;
 
 namespace NNChallenge.iOS
 {
@@ -8,7 +9,7 @@ namespace NNChallenge.iOS
     {
         private readonly string _location;
         private readonly WeatherForecastService _forecastService;
-        private readonly IImageLoader _imageLoader;
+        private readonly IImageLoader<UIImage> _imageLoader;
         private readonly CancellationTokenSource _disposeCts;
 
         private UITableView _tableViewHourForecast;
@@ -19,7 +20,7 @@ namespace NNChallenge.iOS
             _location = location;
 
             _forecastService = new WeatherForecastService();
-            _imageLoader = new ImageLoaderCacheProxy(new ImageLoader());
+            _imageLoader = new ImageLoaderCacheProxy<UIImage>(new ImageLoader());
 
             _disposeCts = new CancellationTokenSource();
         }
@@ -36,7 +37,7 @@ namespace NNChallenge.iOS
             base.ViewDidLoad();
             Title = _location;
 
-            _ = LoadForecastDataAsync();
+            _ = DisplayForecastAsync();
         }
 
         protected override void Dispose(bool disposing)
@@ -50,14 +51,14 @@ namespace NNChallenge.iOS
             base.Dispose(disposing);
         }
 
-        private async Task LoadForecastDataAsync()
+        private async Task DisplayForecastAsync()
         {
             try
             {
                 ShowLoading(true);
-                
+
                 var forecast = await _forecastService.GetForecastAsync(_location, _disposeCts.Token);
-                
+
                 _tableViewHourForecast.Source = new HourForecastDataSource(
                     forecast.HourForecast,
                     (url, token) => _imageLoader.LoadAsync(url, token));

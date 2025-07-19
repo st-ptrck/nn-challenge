@@ -1,6 +1,8 @@
+using NNChallenge.Utils;
+
 namespace NNChallenge.iOS.Utils
 {
-    public class ImageLoader : IImageLoader
+    public class ImageLoader : IImageLoader<UIImage>
     {
         public async Task<UIImage> LoadAsync(string url, CancellationToken token)
         {

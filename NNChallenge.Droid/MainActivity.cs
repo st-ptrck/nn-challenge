@@ -1,6 +1,5 @@
-﻿using _Microsoft.Android.Resource.Designer;
+﻿using AndroidX.AppCompat.App;
 using Android.Content;
-using AndroidX.AppCompat.App;
 using NNChallenge.Constants;
 
 namespace NNChallenge.Droid
@@ -11,12 +10,13 @@ namespace NNChallenge.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(ResourceConstant.Layout.activity_location);
 
-            Button buttonForecst = FindViewById<Button>(ResourceConstant.Id.button_forecast);
+            SetContentView(Resource.Layout.activity_location);
+
+            Button buttonForecst = FindViewById<Button>(Resource.Id.button_forecast);
             buttonForecst.Click += OnForecastClick;
 
-            Spinner spinnerLocations = FindViewById<Spinner>(ResourceConstant.Id.spinner_location);
+            Spinner spinnerLocations = FindViewById<Spinner>(Resource.Id.spinner_location);
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this,
@@ -31,7 +31,12 @@ namespace NNChallenge.Droid
 
         private void OnForecastClick(object sender, EventArgs e)
         {
-            this.StartActivity(new Intent(this, typeof(ForecastActivity)));
+            var spinnerLocations = FindViewById<Spinner>(Resource.Id.spinner_location);
+            var selectedLocation = (string)spinnerLocations.SelectedItem;
+
+            var forecastIntent = new Intent(this, typeof(ForecastActivity));
+            forecastIntent.PutExtra("SelectedLocation", selectedLocation);
+            StartActivity(forecastIntent);
         }
     }
 }
