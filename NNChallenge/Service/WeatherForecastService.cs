@@ -12,7 +12,7 @@ namespace NNChallenge.Service
             _urlResolver = new WeatherForecastUrlResolver();
         }
 
-        public async Task<WeatherForecastVO> GetForecastAsync(string location, CancellationToken token)
+        public async Task<WeatherForecastVo> GetForecastAsync(string location, CancellationToken token)
         {
             using (var client = new HttpClient())
             {

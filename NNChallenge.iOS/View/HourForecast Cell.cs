@@ -14,15 +14,15 @@ namespace NNChallenge.iOS.View
             _loadImageCts = new CancellationTokenSource();
         }
 
-        public void Configure(IHourWeatherForecastVO hourForecast)
+        public void Configure(IHourWeatherForecastVo hourForecast)
         {
-            TextLabel.Text = $"{hourForecast.TeperatureCelcius}°C / {hourForecast.TeperatureFahrenheit}°F";
+            TextLabel.Text = $"{hourForecast.Temperature}°C / {hourForecast.Temperature.Fahrenheit}°F";
             DetailTextLabel.Text = hourForecast.Date.ToString("MMM dd, yyyy HH:mm");
 
             _loadImageCts.Cancel();
             _loadImageCts.Dispose();
             _loadImageCts = new CancellationTokenSource();
-            _ = LoadImageAsync(hourForecast.ForecastPitureURL, _loadImageCts.Token);
+            _ = LoadImageAsync(hourForecast.ForecastPictureUrl, _loadImageCts.Token);
         }
 
         protected override void Dispose(bool disposing)

@@ -5,15 +5,15 @@ using NNChallenge.Models;
 
 namespace NNChallenge.Droid.Adapters
 {
-    public class HourForecastAdapter : BaseAdapter<HourWeatherForecastVO>
+    public class HourForecastAdapter : BaseAdapter<HourWeatherForecastVo>
     {
         private readonly Context _context;
-        private readonly IHourWeatherForecastVO[] _hourForecasts;
+        private readonly IHourWeatherForecastVo[] _hourForecasts;
         private readonly Func<string, CancellationToken, Task<Bitmap>> _loadImageFunc;
 
         public HourForecastAdapter(
             Context context,
-            IHourWeatherForecastVO[] hourForecasts,
+            IHourWeatherForecastVo[] hourForecasts,
             Func<string, CancellationToken, Task<Bitmap>> loadImageFunc)
         {
             _context = context;
@@ -21,7 +21,7 @@ namespace NNChallenge.Droid.Adapters
             _loadImageFunc = loadImageFunc;
         }
 
-        public override HourWeatherForecastVO this[int position] => (HourWeatherForecastVO)_hourForecasts[position];
+        public override HourWeatherForecastVo this[int position] => (HourWeatherForecastVo)_hourForecasts[position];
 
         public override int Count => _hourForecasts.Length;
 
@@ -39,12 +39,13 @@ namespace NNChallenge.Droid.Adapters
             var textTemperature = view.FindViewById<TextView>(Resource.Id.textTemperature);
             var imageViewForecast = view.FindViewById<ImageView>(Resource.Id.imageViewForecast);
 
-            var currentForecast = (HourWeatherForecastVO)_hourForecasts[position];
+            var currentForecast = (HourWeatherForecastVo)_hourForecasts[position];
 
             textDate.Text = currentForecast.Date.ToString("HH:mm MMM dd,yyyy");
-            textTemperature.Text = $"{currentForecast.TeperatureCelcius}°C / {currentForecast.TeperatureFahrenheit}°F";
+            textTemperature.Text =
+                $"{currentForecast.Temperature.Celsius}°C / {currentForecast.Temperature.Fahrenheit}°F";
 
-            _ = LoadImageAsync(currentForecast.ForecastPitureURL, imageViewForecast);
+            _ = LoadImageAsync(currentForecast.ForecastPictureUrl, imageViewForecast);
 
             return view;
         }

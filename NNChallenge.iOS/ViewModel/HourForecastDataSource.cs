@@ -7,11 +7,11 @@ namespace NNChallenge.iOS.ViewModel
     {
         private const string CellIdentifier = "HourForecastCell";
 
-        private readonly IHourWeatherForecastVO[] _hourForecasts;
+        private readonly IHourWeatherForecastVo[] _hourForecasts;
         private readonly Func<string, CancellationToken, Task<UIImage>> _loadImageFunc;
 
         public HourForecastDataSource(
-            IHourWeatherForecastVO[] data,
+            IHourWeatherForecastVo[] data,
             Func<string, CancellationToken, Task<UIImage>> loadImageFunc)
         {
             _hourForecasts = data;

@@ -61,7 +61,7 @@ namespace NNChallenge.Droid
                 var listViewHourForecast = FindViewById<ListView>(Resource.Id.listViewHourForecast);
                 var adapter = new HourForecastAdapter(
                     this, 
-                    forecast.HourForecast,
+                    forecast.HourForecasts,
                     (url, token) => _imageLoader.LoadAsync(url, token));
                 listViewHourForecast.Adapter = adapter;
             }

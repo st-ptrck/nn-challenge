@@ -60,7 +60,7 @@ namespace NNChallenge.iOS
                 var forecast = await _forecastService.GetForecastAsync(_location, _disposeCts.Token);
 
                 _tableViewHourForecast.Source = new HourForecastDataSource(
-                    forecast.HourForecast,
+                    forecast.HourForecasts,
                     (url, token) => _imageLoader.LoadAsync(url, token));
                 _tableViewHourForecast.ReloadData();
             }
